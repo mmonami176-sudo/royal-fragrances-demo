@@ -1,1668 +1,370 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>وكالة تسويق رقمي | إعلانات ممولة تحقق نتائج</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cairo@5.0.18/index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-card: rgba(30, 41, 59, 0.6);
-            --gold: #FFD700;
-            --gold-light: #FFE44D;
-            --gold-dark: #B8960B;
-            --white: #ffffff;
-            --gray-100: #f1f5f9;
-            --gray-300: #cbd5e1;
-            --gray-400: #94a3b8;
-            --gray-500: #64748b;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 215, 0, 0.15);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--white);
-            overflow-x: hidden;
-            line-height: 1.8;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-
-        /* ===== NAVIGATION ===== */
-        .navbar {
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            z-index: 1000;
-            padding: 1rem 2rem;
-            transition: all 0.4s ease;
-            background: transparent;
-        }
-
-        .navbar.scrolled {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-            padding: 0.6rem 2rem;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .nav-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-logo i {
-            -webkit-text-fill-color: var(--gold);
-            font-size: 1.3rem;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--gray-300);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-cta {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: var(--bg-primary) !important;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .nav-cta::after { display: none !important; }
-
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
-            color: var(--bg-primary) !important;
-        }
-
-        .mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--gold);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* ===== HERO SECTION ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 8rem 2rem 4rem;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -30%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: heroGlow 8s ease-in-out infinite alternate;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: heroGlow 10s ease-in-out infinite alternate-reverse;
-        }
-
-        @keyframes heroGlow {
-            0% { transform: scale(1) translate(0, 0); }
-            100% { transform: scale(1.2) translate(30px, -20px); }
-        }
-
-        .hero-particles {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: var(--gold);
-            border-radius: 50%;
-            opacity: 0;
-            animation: particleFloat 6s infinite;
-        }
-
-        @keyframes particleFloat {
-            0% { opacity: 0; transform: translateY(100vh) scale(0); }
-            20% { opacity: 0.6; }
-            80% { opacity: 0.3; }
-            100% { opacity: 0; transform: translateY(-10vh) scale(1); }
-        }
-
-        .hero-content {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            color: var(--gold);
-            margin-bottom: 2rem;
-            backdrop-filter: blur(10px);
-            animation: fadeInDown 0.8s ease forwards;
-        }
-
-        .hero-badge i {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            line-height: 1.3;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease 0.2s forwards;
-            opacity: 0;
-        }
-
-        .hero h1 .highlight {
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-        }
-
-        .hero p {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            color: var(--gray-400);
-            margin-bottom: 2.5rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            animation: fadeInUp 0.8s ease 0.4s forwards;
-            opacity: 0;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.6s forwards;
-            opacity: 0;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: var(--bg-primary);
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.4s ease;
-            border: none;
-            cursor: pointer;
-            font-family: 'Cairo', sans-serif;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.4);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: transparent;
-            color: var(--white);
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.4s ease;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
-        }
-
-        .hero-stats-mini {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-top: 4rem;
-            animation: fadeInUp 0.8s ease 0.8s forwards;
-            opacity: 0;
-        }
-
-        .hero-stat {
-            text-align: center;
-        }
-
-        .hero-stat-number {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--gold);
-        }
-
-        .hero-stat-label {
-            font-size: 0.85rem;
-            color: var(--gray-400);
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ===== SECTION STYLES ===== */
-        section {
-            padding: 6rem 2rem;
-            position: relative;
-        }
-
-        .section-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--gold);
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-        }
-
-        .section-label::before,
-        .section-label::after {
-            content: '';
-            width: 30px;
-            height: 1px;
-            background: var(--gold);
-        }
-
-        .section-title {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            line-height: 1.3;
-        }
-
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: var(--gray-400);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* ===== GLASS CARD ===== */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
-        }
-
-        .glass-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 215, 0, 0.3);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(255, 215, 0, 0.05);
-        }
-
-        /* ===== WHY CHOOSE US ===== */
-        .why-section {
-            background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(30, 41, 59, 0.3) 50%, var(--bg-primary) 100%);
-        }
-
-        .why-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .why-card {
-            text-align: center;
-            padding: 2.5rem 2rem;
-        }
-
-        .why-card-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            color: var(--gold);
-            transition: all 0.4s ease;
-        }
-
-        .glass-card:hover .why-card-icon {
-            transform: scale(1.1) rotate(5deg);
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(255, 215, 0, 0.1));
-        }
-
-        .why-card h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-
-        .why-card p {
-            color: var(--gray-400);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        /* ===== SERVICES ===== */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .service-card {
-            padding: 2.5rem 2rem;
-            position: relative;
-        }
-
-        .service-card-number {
-            position: absolute;
-            top: 1.5rem;
-            left: 1.5rem;
-            font-size: 3rem;
-            font-weight: 900;
-            color: rgba(255, 215, 0, 0.08);
-            line-height: 1;
-        }
-
-        .service-card-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--bg-primary);
-            margin-bottom: 1.5rem;
-            transition: all 0.4s ease;
-        }
-
-        .glass-card:hover .service-card-icon {
-            transform: rotate(-10deg) scale(1.1);
-        }
-
-        .service-card h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-
-        .service-card p {
-            color: var(--gray-400);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .service-card-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--gold);
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            font-size: 0.95rem;
-            transition: gap 0.3s ease;
-        }
-
-        .service-card-link:hover {
-            gap: 1rem;
-        }
-
-        /* ===== HOW IT WORKS ===== */
-        .how-section {
-            background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(30, 41, 59, 0.3) 50%, var(--bg-primary) 100%);
-        }
-
-        .steps-container {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            position: relative;
-        }
-
-        .step-card {
-            flex: 1;
-            min-width: 250px;
-            max-width: 350px;
-            text-align: center;
-            padding: 3rem 2rem;
-            position: relative;
-        }
-
-        .step-number {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--bg-primary);
-            margin: 0 auto 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .step-card::after {
-            content: '';
-            position: absolute;
-            top: 4.5rem;
-            left: -1rem;
-            width: calc(100% - 70px);
-            height: 2px;
-            background: linear-gradient(90deg, var(--gold), transparent);
-            opacity: 0.2;
-        }
-
-        .step-card:last-child::after {
-            display: none;
-        }
-
-        .step-card h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-
-        .step-card p {
-            color: var(--gray-400);
-            font-size: 0.95rem;
-        }
-
-        /* ===== STATISTICS ===== */
-        .stats-section {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.03), rgba(15, 23, 42, 1));
-            border-top: 1px solid rgba(255, 215, 0, 0.05);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.05);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-
-        .stat-icon {
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-
-        .stat-number {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            color: var(--gold);
-            margin-bottom: 0.5rem;
-            direction: ltr;
-        }
-
-        .stat-label {
-            color: var(--gray-400);
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        /* ===== TESTIMONIALS ===== */
-        .testimonials-section {
-            background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(30, 41, 59, 0.2) 50%, var(--bg-primary) 100%);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .testimonial-card {
-            padding: 2.5rem 2rem;
-        }
-
-        .testimonial-stars {
-            color: var(--gold);
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            gap: 0.25rem;
-        }
-
-        .testimonial-text {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: var(--gray-300);
-            margin-bottom: 2rem;
-            font-style: italic;
-        }
-
-        .testimonial-text::before {
-            content: '"';
-            font-size: 3rem;
-            color: var(--gold);
-            opacity: 0.3;
-            line-height: 0;
-            vertical-align: -1rem;
-            margin-left: 0.25rem;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: var(--bg-primary);
-        }
-
-        .testimonial-name {
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .testimonial-role {
-            color: var(--gray-400);
-            font-size: 0.85rem;
-        }
-
-        /* ===== FAQ ===== */
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .faq-item:hover {
-            border-color: rgba(255, 215, 0, 0.25);
-        }
-
-        .faq-item.active {
-            border-color: rgba(255, 215, 0, 0.3);
-            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.05);
-        }
-
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1.05rem;
-            transition: color 0.3s ease;
-            user-select: none;
-        }
-
-        .faq-question:hover {
-            color: var(--gold);
-        }
-
-        .faq-question i {
-            color: var(--gold);
-            transition: transform 0.4s ease;
-            font-size: 0.9rem;
-        }
-
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.4s ease;
-        }
-
-        .faq-answer-content {
-            padding: 0 2rem 1.5rem;
-            color: var(--gray-400);
-            line-height: 1.8;
-            font-size: 0.95rem;
-        }
-
-        /* ===== FINAL CTA ===== */
-        .cta-section {
-            padding: 8rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.08) 0%, transparent 70%);
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 2;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .cta-icon {
-            font-size: 4rem;
-            color: var(--gold);
-            margin-bottom: 2rem;
-            animation: pulse 2s infinite;
-        }
-
-        .cta-title {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .cta-text {
-            font-size: 1.1rem;
-            color: var(--gray-400);
-            margin-bottom: 2.5rem;
-        }
-
-        .btn-whatsapp-large {
-            display: inline-flex;
-            align-items: center;
-            gap: 1rem;
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            color: white;
-            padding: 1.2rem 3rem;
-            border-radius: 60px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.4s ease;
-            font-family: 'Cairo', sans-serif;
-            position: relative;
-            overflow: hidden;
-            animation: glowBtn 2s infinite;
-        }
-
-        @keyframes glowBtn {
-            0%, 100% { box-shadow: 0 0 20px rgba(37, 211, 102, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(37, 211, 102, 0.6), 0 0 80px rgba(37, 211, 102, 0.2); }
-        }
-
-        .btn-whatsapp-large:hover {
-            transform: translateY(-4px) scale(1.05);
-        }
-
-        .btn-whatsapp-large::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .btn-whatsapp-large:hover::before {
-            left: 100%;
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            background: rgba(15, 23, 42, 0.95);
-            border-top: 1px solid rgba(255, 215, 0, 0.1);
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-        }
-
-        .footer-text {
-            color: var(--gray-500);
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-socials {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-socials a {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-400);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-        }
-
-        .footer-socials a:hover {
-            background: rgba(255, 215, 0, 0.1);
-            color: var(--gold);
-            border-color: var(--gold);
-            transform: translateY(-3px);
-        }
-
-        .footer-copyright {
-            color: var(--gray-500);
-            font-size: 0.85rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 1.5rem;
-        }
-
-        /* ===== FLOATING WHATSAPP ===== */
-        .floating-whatsapp {
-            position: fixed;
-            bottom: 2rem;
-            left: 2rem;
-            z-index: 999;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.8rem;
-            text-decoration: none;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-            transition: all 0.3s ease;
-            animation: floatBounce 3s ease-in-out infinite;
-        }
-
-        .floating-whatsapp:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
-        }
-
-        @keyframes floatBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .floating-whatsapp::after {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            border: 2px solid rgba(37, 211, 102, 0.3);
-            animation: ripple 2s infinite;
-        }
-
-        @keyframes ripple {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-        /* ===== SCROLL REVEAL ===== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
-
-        /* ===== MOBILE MENU ===== */
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 999;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .mobile-menu.open {
-            display: flex;
-        }
-
-        .mobile-menu a {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .mobile-menu a:hover {
-            color: var(--gold);
-        }
-
-        .mobile-close {
-            position: absolute;
-            top: 1.5rem;
-            left: 1.5rem;
-            background: none;
-            border: none;
-            color: var(--gold);
-            font-size: 1.8rem;
-            cursor: pointer;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-toggle { display: block; }
-
-            .hero { padding: 7rem 1.5rem 3rem; min-height: auto; }
-            .hero-stats-mini { gap: 1.5rem; flex-wrap: wrap; }
-
-            section { padding: 4rem 1.5rem; }
-
-            .steps-container { flex-direction: column; align-items: center; }
-            .step-card::after { display: none; }
-
-            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-
-            .testimonials-grid { grid-template-columns: 1fr; }
-
-            .btn-whatsapp-large { padding: 1rem 2rem; font-size: 1.1rem; }
-
-            .faq-question { padding: 1.2rem 1.5rem; font-size: 0.95rem; }
-            .faq-answer-content { padding: 0 1.5rem 1.2rem; }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 1.8rem; }
-            .hero p { font-size: 1rem; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .why-grid { grid-template-columns: 1fr; }
-            .services-grid { grid-template-columns: 1fr; }
-        }
-
-        /* Divider line */
-        .section-divider {
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
-            margin: 1rem auto 0;
-            border-radius: 2px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إنجاز | وكالة تسويق رقمي تحقق نتائج حقيقية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --blue:#1a1a2e;
+  --blue2:#16213e;
+  --accent:#0f3460;
+  --gold:#D4AF37;
+  --gold2:#F0D060;
+  --cyan:#00d4ff;
+  --text:#f0f4f8;
+  --muted:#8899aa;
+  --green:#25D366;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--blue);color:var(--text);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(26,26,46,0.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,212,255,0.1)}
+.nav-logo{font-size:1.6rem;font-weight:900;color:var(--text)}
+.nav-logo em{font-style:normal;background:linear-gradient(135deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.9rem;transition:color 0.3s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{background:linear-gradient(135deg,var(--cyan),#0099bb);color:#000;padding:10px 22px;border-radius:50px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:all 0.3s}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,212,255,0.4)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 5% 80px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 70% 50%,rgba(0,212,255,0.08) 0%,transparent 70%)}
+.grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.04) 1px,transparent 1px);background-size:60px 60px}
+.hero-content{position:relative;z-index:2;max-width:680px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);padding:8px 18px;border-radius:50px;font-size:0.85rem;color:var(--cyan);margin-bottom:30px}
+.badge-dot{width:8px;height:8px;background:var(--cyan);border-radius:50%;animation:blink 1.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.2;margin-bottom:24px;font-weight:900}
+.hero h1 .hl{background:linear-gradient(135deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.05rem;color:var(--muted);line-height:1.8;margin-bottom:40px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),#0099bb);color:#000;padding:16px 32px;border-radius:50px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(0,212,255,0.3)}
+.btn-outline{border:2px solid rgba(0,212,255,0.3);color:var(--text);padding:16px 32px;border-radius:50px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s}
+.btn-outline:hover{border-color:var(--cyan);color:var(--cyan)}
+.hero-float{position:absolute;left:5%;top:50%;transform:translateY(-50%);display:grid;grid-template-columns:1fr 1fr;gap:14px;width:38%;max-width:420px}
+.metric-card{background:rgba(22,33,62,0.9);border:1px solid rgba(0,212,255,0.15);border-radius:16px;padding:20px;text-align:center;backdrop-filter:blur(10px)}
+.metric-num{font-size:2rem;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.metric-label{font-size:0.78rem;color:var(--muted);margin-top:4px}
+
+/* STATS BAR */
+.stats-bar{padding:50px 5%;border-top:1px solid rgba(0,212,255,0.08);border-bottom:1px solid rgba(0,212,255,0.08);background:var(--blue2)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;max-width:1000px;margin:0 auto;text-align:center}
+.stat-num{font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block}
+.stat-label{font-size:0.85rem;color:var(--muted);margin-top:4px}
+
+/* SECTION */
+section{padding:90px 5%;position:relative}
+.sec-label{font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;font-weight:600}
+.sec-title{font-size:clamp(1.7rem,3vw,2.6rem);font-weight:900;margin-bottom:14px}
+.sec-title .hl{background:linear-gradient(135deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sec-desc{font-size:0.95rem;color:var(--muted);line-height:1.8;max-width:600px}
+.sec-head{margin-bottom:60px}
+
+/* WHY */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.why-card{background:var(--blue2);border:1px solid rgba(0,212,255,0.1);border-radius:20px;padding:34px 26px;transition:all 0.4s;position:relative;overflow:hidden}
+.why-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--gold));transform:scaleX(0);transition:transform 0.4s}
+.why-card:hover{transform:translateY(-6px);border-color:rgba(0,212,255,0.25);box-shadow:0 20px 50px rgba(0,0,0,0.4)}
+.why-card:hover::after{transform:scaleX(1)}
+.why-icon{font-size:2rem;margin-bottom:16px}
+.why-card h3{font-size:1.05rem;font-weight:700;margin-bottom:10px}
+.why-card p{font-size:0.88rem;color:var(--muted);line-height:1.7}
+
+/* SERVICES */
+.services-section{background:var(--blue2)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.service-card{background:var(--blue);border:1px solid rgba(0,212,255,0.1);border-radius:20px;padding:32px;transition:all 0.4s;cursor:default}
+.service-card:hover{transform:translateY(-6px);border-color:rgba(212,175,55,0.3);box-shadow:0 20px 50px rgba(0,0,0,0.4)}
+.service-icon{width:54px;height:54px;background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(212,175,55,0.08));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:18px;border:1px solid rgba(0,212,255,0.15)}
+.service-card h3{font-size:1.05rem;font-weight:700;margin-bottom:10px}
+.service-card p{font-size:0.87rem;color:var(--muted);line-height:1.7;margin-bottom:16px}
+.service-tag{display:inline-block;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.15);padding:4px 10px;border-radius:50px;font-size:0.75rem;color:var(--cyan)}
+
+/* HOW */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto;position:relative}
+.steps-grid::before{content:'';position:absolute;top:40px;left:12%;right:12%;height:2px;background:linear-gradient(90deg,var(--cyan),var(--gold));opacity:0.3}
+.step-card{background:var(--blue2);border:1px solid rgba(0,212,255,0.08);border-radius:20px;padding:28px;text-align:center;position:relative}
+.step-num{width:50px;height:50px;background:linear-gradient(135deg,var(--cyan),#0099bb);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;color:#000;margin:0 auto 16px}
+.step-card h3{font-size:0.95rem;font-weight:700;margin-bottom:8px}
+.step-card p{font-size:0.82rem;color:var(--muted);line-height:1.6}
+
+/* RESULTS */
+.results-section{background:linear-gradient(135deg,rgba(0,212,255,0.06),rgba(212,175,55,0.04))}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.result-card{background:var(--blue2);border:1px solid rgba(0,212,255,0.12);border-radius:20px;padding:30px;text-align:center}
+.result-before,.result-after{font-size:1.8rem;font-weight:900}
+.result-before{color:var(--muted);text-decoration:line-through}
+.result-after{background:linear-gradient(135deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.result-arrow{font-size:1.5rem;margin:8px 0}
+.result-label{font-size:0.85rem;color:var(--muted);margin-top:10px}
+.result-client{font-size:0.8rem;color:var(--cyan);margin-top:6px;font-weight:600}
+
+/* TESTIMONIALS */
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.review-card{background:var(--blue2);border:1px solid rgba(0,212,255,0.1);border-radius:20px;padding:28px}
+.review-stars{color:var(--gold);font-size:1rem;margin-bottom:14px}
+.review-text{font-size:0.9rem;color:var(--muted);line-height:1.8;margin-bottom:18px;font-style:italic}
+.review-author{display:flex;align-items:center;gap:10px}
+.review-avatar{width:42px;height:42px;background:linear-gradient(135deg,var(--cyan),var(--gold));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;color:#000;font-weight:700;flex-shrink:0}
+.review-name{font-weight:700;font-size:0.88rem}
+.review-city{font-size:0.78rem;color:var(--muted)}
+
+/* CTA */
+.cta-section{text-align:center;background:var(--blue2);padding:100px 5%}
+.cta-section h2{font-size:clamp(1.8rem,3vw,2.8rem);font-weight:900;margin-bottom:16px}
+.cta-section p{color:var(--muted);max-width:550px;margin:0 auto 36px;line-height:1.8}
+.btn-wa{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;padding:18px 38px;border-radius:50px;font-weight:700;font-size:1.05rem;text-decoration:none;transition:all 0.3s;box-shadow:0 8px 30px rgba(37,211,102,0.25)}
+.btn-wa:hover{transform:translateY(-3px);box-shadow:0 15px 45px rgba(37,211,102,0.4)}
+
+/* PORTFOLIO CTA */
+.portfolio-cta{background:linear-gradient(135deg,rgba(0,212,255,0.08),rgba(212,175,55,0.06));border-top:1px solid rgba(0,212,255,0.12);border-bottom:1px solid rgba(0,212,255,0.12);text-align:center;padding:80px 5%}
+.portfolio-cta h2{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:900;margin-bottom:14px}
+.portfolio-cta h2 .hl{background:linear-gradient(135deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.portfolio-cta p{font-size:1rem;color:var(--muted);max-width:520px;margin:0 auto 32px;line-height:1.8}
+.portfolio-tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px}
+.ptag{background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.2);padding:6px 14px;border-radius:50px;font-size:0.8rem;color:var(--text)}
+
+footer{background:var(--blue);padding:36px 5%;text-align:center;border-top:1px solid rgba(255,255,255,0.05)}
+footer p{color:var(--muted);font-size:0.85rem}
+
+.wa-float{position:fixed;bottom:28px;left:28px;width:58px;height:58px;background:linear-gradient(135deg,#25D366,#128C7E);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;text-decoration:none;box-shadow:0 6px 25px rgba(37,211,102,0.4);z-index:99;transition:all 0.3s;color:#fff}
+.wa-float:hover{transform:scale(1.1)}
+
+.reveal{opacity:0;transform:translateY(30px);transition:all 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hero-float{display:none}
+  .stats-grid,.why-grid,.services-grid,.steps-grid,.results-grid,.reviews-grid{grid-template-columns:1fr}
+  .steps-grid::before{display:none}
+}
+</style>
 </head>
 <body>
 
-    <!-- NAVIGATION -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <i class="fas fa-rocket"></i>
-                إنجاز
-            </a>
-            <ul class="nav-links">
-                <li><a href="#why">لماذا نحن</a></li>
-                <li><a href="#services">خدماتنا</a></li>
-                <li><a href="#how">كيف نعمل</a></li>
-                <li><a href="#testimonials">آراء العملاء</a></li>
-                <li><a href="#faq">الأسئلة الشائعة</a></li>
-                <li><a href="https://wa.me/212600000000" class="nav-cta" target="_blank"><i class="fab fa-whatsapp"></i> تواصل معنا</a></li>
-            </ul>
-            <button class="mobile-toggle" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </nav>
+<nav>
+  <div class="nav-logo"><em>إنجاز</em></div>
+  <ul class="nav-links">
+    <li><a href="#why">لماذا نحن</a></li>
+    <li><a href="#services">الخدمات</a></li>
+    <li><a href="#results">النتائج</a></li>
+    <li><a href="#reviews">العملاء</a></li>
+  </ul>
+  <a href="https://wa.me/212XXXXXXXXX" class="nav-cta" target="_blank">🚀 ابدأ الآن</a>
+</nav>
 
-    <!-- MOBILE MENU -->
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="mobile-close" onclick="toggleMobileMenu()"><i class="fas fa-times"></i></button>
-        <a href="#why" onclick="toggleMobileMenu()">لماذا نحن</a>
-        <a href="#services" onclick="toggleMobileMenu()">خدماتنا</a>
-        <a href="#how" onclick="toggleMobileMenu()">كيف نعمل</a>
-        <a href="#testimonials" onclick="toggleMobileMenu()">آراء العملاء</a>
-        <a href="#faq" onclick="toggleMobileMenu()">الأسئلة الشائعة</a>
-        <a href="https://wa.me/212600000000" target="_blank" style="color: #25D366;"><i class="fab fa-whatsapp"></i> تواصل معنا</a>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="badge-dot"></span> وكالة تسويق رقمي معتمدة</div>
+    <h1>إعلانات ممولة<br>تحقق <span class="hl">مبيعات حقيقية</span></h1>
+    <p>لسنا مجرد وكالة تسويق — نحن شريكك في النمو. نُدير حملاتك الإعلانية على فيسبوك وإنستغرام وتيك توك بنتائج مضمونة تُقاس بالأرقام لا بالوعود.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/212XXXXXXXXX?text=مرحبا، أريد استشارة مجانية" class="btn-primary" target="_blank">💬 استشارة مجانية</a>
+      <a href="#services" class="btn-outline">📊 اكتشف خدماتنا</a>
     </div>
+  </div>
+  <div class="hero-float">
+    <div class="metric-card reveal">
+      <div class="metric-num">×4.5</div>
+      <div class="metric-label">متوسط العائد على الإنفاق</div>
+    </div>
+    <div class="metric-card reveal">
+      <div class="metric-num">200+</div>
+      <div class="metric-label">حملة ناجحة</div>
+    </div>
+    <div class="metric-card reveal">
+      <div class="metric-num">48h</div>
+      <div class="metric-label">للإطلاق الكامل</div>
+    </div>
+    <div class="metric-card reveal">
+      <div class="metric-num">97%</div>
+      <div class="metric-label">نسبة رضا العملاء</div>
+    </div>
+  </div>
+</section>
 
-    <!-- HERO SECTION -->
-    <section class="hero" id="hero">
-        <div class="hero-particles" id="particles"></div>
-        <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-star"></i>
-                الوكالة رقم 1 في التسويق الرقمي بالمغرب
-            </div>
-            <h1>
-                طوّر تجارتك ووصل لعدد أكبر من
-                <span class="highlight">الزبناء</span>
-            </h1>
-            <p>إعلانات ممولة احترافية تحقق نتائج حقيقية وتزيد مبيعاتك. نساعدك في الوصول إلى جمهورك المستهدف بأقل تكلفة وأعلى عائد على الاستثمار.</p>
-            <div class="hero-buttons">
-                <a href="https://wa.me/212600000000" class="btn-primary" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                    راسلنا الآن على واتساب
-                </a>
-                <a href="#services" class="btn-secondary">
-                    <i class="fas fa-play-circle"></i>
-                    اكتشف خدماتنا
-                </a>
-            </div>
-            <div class="hero-stats-mini">
-                <div class="hero-stat">
-                    <div class="hero-stat-number">+500</div>
-                    <div class="hero-stat-label">حملة ناجحة</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-number">+300</div>
-                    <div class="hero-stat-label">عميل سعيد</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-number">95%</div>
-                    <div class="hero-stat-label">نسبة الرضا</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="stats-bar">
+  <div class="stats-grid">
+    <div class="reveal"><span class="stat-num" data-target="200">0</span><div class="stat-label">حملة ناجحة</div></div>
+    <div class="reveal"><span class="stat-num" data-target="150">0</span><div class="stat-label">عميل راضٍ</div></div>
+    <div class="reveal"><span class="stat-num" data-target="4">0</span><div class="stat-label">سنوات خبرة</div></div>
+    <div class="reveal"><span class="stat-num" data-target="97">0</span><div class="stat-label">٪ نسبة الرضا</div></div>
+  </div>
+</div>
 
-    <!-- WHY CHOOSE US -->
-    <section class="why-section" id="why">
-        <div class="section-container">
-            <div class="section-header reveal">
-                <div class="section-label">
-                    مميزاتنا
-                </div>
-                <h2 class="section-title">لماذا تختار <span style="color: var(--gold);">إنجاز</span>؟</h2>
-                <p class="section-subtitle">نقدم لك حلولاً تسويقية متكاملة مصممة خصيصاً لتحقيق أهدافك التجارية</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="why-grid">
-                <div class="glass-card why-card reveal reveal-delay-1">
-                    <div class="why-card-icon">
-                        <i class="fas fa-crosshairs"></i>
-                    </div>
-                    <h3>استهداف دقيق للعملاء</h3>
-                    <p>نستخدم أحدث أدوات التحليل والاستهداف للوصول إلى العملاء المثاليين لنشاطك التجاري في المغرب وخارجه</p>
-                </div>
-                <div class="glass-card why-card reveal reveal-delay-2">
-                    <div class="why-card-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>زيادة المبيعات</h3>
-                    <p>استراتيجياتنا المجربة ساعدت مئات الشركات على مضاعفة مبيعاتها وتحقيق نمو مستدام في أرباحها</p>
-                </div>
-                <div class="glass-card why-card reveal reveal-delay-3">
-                    <div class="why-card-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <h3>تقارير ونتائج واضحة</h3>
-                    <p>نوفر لك تقارير مفصلة وشفافة عن أداء حملاتك الإعلانية مع تحليلات دقيقة تساعدك على فهم النتائج</p>
-                </div>
-                <div class="glass-card why-card reveal reveal-delay-4">
-                    <div class="why-card-icon">
-                        <i class="fas fa-coins"></i>
-                    </div>
-                    <h3>أقل تكلفة مقابل أفضل نتائج</h3>
-                    <p>نحسّن ميزانيتك الإعلانية لتحقيق أقصى عائد ممكن، مما يضمن لك أفضل نسبة عائد على الاستثمار</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="why">
+  <div class="sec-head reveal">
+    <div class="sec-label">لماذا تختار إنجاز</div>
+    <h2 class="sec-title">نتائج تتحدث <span class="hl">عن نفسها</span></h2>
+    <p class="sec-desc">لا وعود فارغة — فقط أرقام حقيقية وعملاء يعودون إلينا مرة بعد مرة</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal"><div class="why-icon">🎯</div><h3>استهداف دقيق للعملاء</h3><p>نستخدم بيانات متقدمة لنوصل إعلانك لمن يريد شراء منتجك تحديداً — لا مال يُهدر</p></div>
+    <div class="why-card reveal"><div class="why-icon">📈</div><h3>مبيعات قابلة للقياس</h3><p>كل درهم تنفقه نُتابعه ونُحلله — ستعرف بالضبط كم ربحت من كل حملة</p></div>
+    <div class="why-card reveal"><div class="why-icon">⚡</div><h3>إطلاق خلال 48 ساعة</h3><p>لا انتظار طويل — نُعد حملتك ونُطلقها بسرعة قياسية مع متابعة يومية</p></div>
+    <div class="why-card reveal"><div class="why-icon">💎</div><h3>إبداع يجذب الأنظار</h3><p>تصاميم ومقاطع إعلانية احترافية تجعل جمهورك يتوقف ويضغط</p></div>
+    <div class="why-card reveal"><div class="why-icon">🔄</div><h3>تحسين مستمر للنتائج</h3><p>لا نكتفي بالإطلاق — نُحلل ونُحسّن حملاتك باستمرار لتحقيق أعلى عائد</p></div>
+    <div class="why-card reveal"><div class="why-icon">📞</div><h3>دعم مباشر ويومي</h3><p>مدير حساب مخصص لك متاح دائماً للإجابة على أسئلتك وتقديم التقارير</p></div>
+  </div>
+</section>
 
-    <!-- SERVICES -->
-    <section id="services">
-        <div class="section-container">
-            <div class="section-header reveal">
-                <div class="section-label">
-                    خدماتنا
-                </div>
-                <h2 class="section-title">خدمات <span style="color: var(--gold);">احترافية</span> لنمو أعمالك</h2>
-                <p class="section-subtitle">نقدم مجموعة متكاملة من خدمات التسويق الرقمي لتلبية جميع احتياجاتك</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="services-grid">
-                <div class="glass-card service-card reveal reveal-delay-1">
-                    <span class="service-card-number">01</span>
-                    <div class="service-card-icon">
-                        <i class="fas fa-bullhorn"></i>
-                    </div>
-                    <h3>إدارة الحملات الإعلانية</h3>
-                    <p>نتولى إدارة حملاتك الإعلانية من الألف إلى الياء، بدءاً من التخطيط الاستراتيجي وصولاً إلى التنفيذ والتحسين المستمر لضمان أفضل النتائج.</p>
-                    <a href="https://wa.me/212600000000" class="service-card-link" target="_blank">
-                        اطلب الخدمة <i class="fas fa-arrow-left"></i>
-                    </a>
-                </div>
-                <div class="glass-card service-card reveal reveal-delay-2">
-                    <span class="service-card-number">02</span>
-                    <div class="service-card-icon">
-                        <i class="fab fa-facebook-f"></i>
-                    </div>
-                    <h3>إعلانات Facebook</h3>
-                    <p>حملات إعلانية مدروسة على فيسبوك تستهدف جمهورك المثالي بدقة عالية، مع تحسين مستمر لتحقيق أقصى تحويلات بأقل تكلفة ممكنة.</p>
-                    <a href="https://wa.me/212600000000" class="service-card-link" target="_blank">
-                        اطلب الخدمة <i class="fas fa-arrow-left"></i>
-                    </a>
-                </div>
-                <div class="glass-card service-card reveal reveal-delay-3">
-                    <span class="service-card-number">03</span>
-                    <div class="service-card-icon">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <h3>إعلانات Instagram</h3>
-                    <p>إعلانات إبداعية وجذابة على إنستغرام تصل بعلامتك التجارية إلى ملايين المستخدمين وتحوّل المتابعين إلى عملاء حقيقيين.</p>
-                    <a href="https://wa.me/212600000000" class="service-card-link" target="_blank">
-                        اطلب الخدمة <i class="fas fa-arrow-left"></i>
-                    </a>
-                </div>
-                <div class="glass-card service-card reveal reveal-delay-4">
-                    <span class="service-card-number">04</span>
-                    <div class="service-card-icon">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <h3>تحليل وتحسين النتائج</h3>
-                    <p>نحلل بيانات حملاتك بشكل عميق ونقدم توصيات استراتيجية لتحسين الأداء continuously وزيادة العائد على الاستثمار بشكل ملحوظ.</p>
-                    <a href="https://wa.me/212600000000" class="service-card-link" target="_blank">
-                        اطلب الخدمة <i class="fas fa-arrow-left"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="services" class="services-section">
+  <div class="sec-head reveal" style="text-align:center">
+    <div class="sec-label">ما نقدمه</div>
+    <h2 class="sec-title">خدمات <span class="hl">شاملة</span> لنمو أعمالك</h2>
+    <p class="sec-desc" style="margin:0 auto">من الإعلان حتى الإقناع — نتكفل بكل شيء</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">📱</div>
+      <h3>إدارة حملات Meta</h3>
+      <p>حملات فيسبوك وإنستغرام بحسابات Business Manager احترافية وبيكسل محسّن</p>
+      <span class="service-tag">Facebook · Instagram</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🎵</div>
+      <h3>إعلانات تيك توك</h3>
+      <p>مقاطع إعلانية تتوافق مع خوارزمية تيك توك وتنتشر بسرعة في الفئة المستهدفة</p>
+      <span class="service-tag">TikTok Ads</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🎨</div>
+      <h3>إنتاج المحتوى الإعلاني</h3>
+      <p>تصاميم احترافية ومقاطع فيديو إعلانية مقنعة تزيد معدل النقر والتحويل</p>
+      <span class="service-tag">Creative Production</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🏪</div>
+      <h3>تسويق المتاجر الإلكترونية</h3>
+      <p>استراتيجية متكاملة لمتجرك من الإعلان حتى إعادة الاستهداف وزيادة الاحتفاظ</p>
+      <span class="service-tag">E-commerce Marketing</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">📊</div>
+      <h3>تقارير وتحليلات</h3>
+      <p>تقرير أسبوعي شامل بمؤشرات الأداء والمبيعات وتوصيات للتحسين المستمر</p>
+      <span class="service-tag">Analytics & Reports</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🤝</div>
+      <h3>استشارة تسويقية</h3>
+      <p>جلسة استشارية مجانية لفهم عملك وتحديد أفضل استراتيجية تسويقية لك</p>
+      <span class="service-tag">Free Consultation</span>
+    </div>
+  </div>
+</section>
 
-    <!-- HOW IT WORKS -->
-    <section class="how-section" id="how">
-        <div class="section-container">
-            <div class="section-header reveal">
-                <div class="section-label">
-                    خطوات العمل
-                </div>
-                <h2 class="section-title">كيف <span style="color: var(--gold);">نعمل</span>؟</h2>
-                <p class="section-subtitle">ثلاث خطوات بسيطة تفصلك عن تحقيق نتائج استثنائية</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="steps-container">
-                <div class="glass-card step-card reveal reveal-delay-1">
-                    <div class="step-number">1</div>
-                    <h3>تواصل معنا</h3>
-                    <p>أرسل لنا رسالة على واتساب وأخبرنا عن نشاطك التجاري وأهدافك. فريقنا جاهز للاستماع إليك وتقديم الاستشارة المجانية.</p>
-                </div>
-                <div class="glass-card step-card reveal reveal-delay-2">
-                    <div class="step-number">2</div>
-                    <h3>نحلل نشاطك</h3>
-                    <p>ندرس السوق المنافس ونحلل جمهورك المستهدف ونضع استراتيجية إعلانية مخصصة تناسب ميزانيتك وتطلعاتك.</p>
-                </div>
-                <div class="glass-card step-card reveal reveal-delay-3">
-                    <div class="step-number">3</div>
-                    <h3>نطلق حملتك الإعلانية</h3>
-                    <p>نبدأ بتنفيذ الحملة الإعلانية ونتابع الأداء لحظة بلحظة مع تحسين مستمر لضمان أفضل النتائج الممكنة.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="how">
+  <div class="sec-head reveal" style="text-align:center">
+    <div class="sec-label">طريقة عملنا</div>
+    <h2 class="sec-title">من <span class="hl">الاتفاق</span> حتى النتائج</h2>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal"><div class="step-num">1</div><h3>استشارة مجانية</h3><p>نفهم عملك وأهدافك ونحدد أفضل خطة تسويقية</p></div>
+    <div class="step-card reveal"><div class="step-num">2</div><h3>إعداد الحملة</h3><p>نُعد الإعلانات والتصاميم وإعدادات الاستهداف الدقيقة</p></div>
+    <div class="step-card reveal"><div class="step-num">3</div><h3>إطلاق ومتابعة</h3><p>نُطلق الحملة ونتابع النتائج يومياً مع تحسين مستمر</p></div>
+    <div class="step-card reveal"><div class="step-num">4</div><h3>تقارير ونمو</h3><p>تقارير أسبوعية وتوصيات لمضاعفة النتائج مع الوقت</p></div>
+  </div>
+</section>
 
-    <!-- STATISTICS -->
-    <section class="stats-section" id="stats">
-        <div class="section-container">
-            <div class="section-header reveal">
-                <div class="section-label">
-                    أرقامنا تتحدث
-                </div>
-                <h2 class="section-title">إنجازات <span style="color: var(--gold);">نفخر</span> بها</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="stats-grid">
-                <div class="stat-item reveal reveal-delay-1">
-                    <div class="stat-icon"><i class="fas fa-rocket"></i></div>
-                    <div class="stat-number" data-target="500">0</div>
-                    <div class="stat-label">حملة ناجحة</div>
-                </div>
-                <div class="stat-item reveal reveal-delay-2">
-                    <div class="stat-icon"><i class="fas fa-users"></i></div>
-                    <div class="stat-number" data-target="300">0</div>
-                    <div class="stat-label">عميل سعيد</div>
-                </div>
-                <div class="stat-item reveal reveal-delay-3">
-                    <div class="stat-icon"><i class="fas fa-smile"></i></div>
-                    <div class="stat-number" data-target="95" data-suffix="%">0</div>
-                    <div class="stat-label">رضا العملاء</div>
-                </div>
-                <div class="stat-item reveal reveal-delay-4">
-                    <div class="stat-icon"><i class="fas fa-headset"></i></div>
-                    <div class="stat-number" data-suffix="24/7">0</div>
-                    <div class="stat-label">دعم متواصل</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="results" class="results-section">
+  <div class="sec-head reveal" style="text-align:center">
+    <div class="sec-label">نتائج حقيقية</div>
+    <h2 class="sec-title">أرقام <span class="hl">لا تكذب</span></h2>
+  </div>
+  <div class="results-grid">
+    <div class="result-card reveal">
+      <div class="result-before">2,000 د.م</div>
+      <div class="result-arrow">↓</div>
+      <div class="result-after">19,400 د.م</div>
+      <div class="result-label">مبيعات في 30 يوم</div>
+      <div class="result-client">متجر ملابس نسائية — مراكش</div>
+    </div>
+    <div class="result-card reveal">
+      <div class="result-before">تكلفة عميل: 45 د.م</div>
+      <div class="result-arrow">↓</div>
+      <div class="result-after">تكلفة عميل: 11 د.م</div>
+      <div class="result-label">بعد تحسين الحملة</div>
+      <div class="result-client">متجر إلكتروني — الرباط</div>
+    </div>
+    <div class="result-card reveal">
+      <div class="result-before">500 متابع</div>
+      <div class="result-arrow">↓</div>
+      <div class="result-after">12,000 متابع</div>
+      <div class="result-label">خلال 60 يوم فقط</div>
+      <div class="result-client">علامة تجارية محلية — الدار البيضاء</div>
+    </div>
+  </div>
+</section>
 
-    <!-- TESTIMONIALS -->
-    <section class="testimonials-section" id="testimonials">
-        <div class="section-container">
-            <div class="section-header reveal">
-                <div class="section-label">
-                    آراء العملاء
-                </div>
-                <h2 class="section-title">ماذا يقول <span style="color: var(--gold);">عملاؤنا</span>؟</h2>
-                <p class="section-subtitle">اكتشف تجارب حقيقية لعملاء حققنا معهم نتائج استثنائية</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="testimonials-grid">
-                <div class="glass-card testimonial-card reveal reveal-delay-1">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">تعاملت مع إنجاز منذ 6 أشهر والنتائج مذهلة. مبيعاتي تضاعفت ثلاث مرات والحملات الإعلانية أصبحت تستهدف الزبناء المناسبين بدقة عالية. أنصح بشدة!</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">أم</div>
-                        <div>
-                            <div class="testimonial-name">أحمد المنصوري</div>
-                            <div class="testimonial-role">صاحب متجر إلكتروني - الدار البيضاء</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="glass-card testimonial-card reveal reveal-delay-2">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">فريق محترف جداً ومتعاون. ساعدوني في بناء حملات إعلانية فعالة على إنستغرام وزاد عدد متابعيني وعملائي بشكل ملحوظ. أفضل استثمار قمت به لمشروعي.</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">فب</div>
-                        <div>
-                            <div class="testimonial-name">فاطمة بنعلي</div>
-                            <div class="testimonial-role">صاحبة مشروع ملابس - مراكش</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="glass-card testimonial-card reveal reveal-delay-3">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">كنت أقضي وقتاً طويلاً في الإعلانات بدون نتائج. منذ أن تولت إنجاز إدارة حملاتي، أصبحت أركز على عملي وهم يحققون لي الزبناء. تقاريرهم واضحة ودقيقة.</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">يك</div>
-                        <div>
-                            <div class="testimonial-name">يوسف الكراوي</div>
-                            <div class="testimonial-role">مدير شركة خدمات - الرباط</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="reviews">
+  <div class="sec-head reveal" style="text-align:center">
+    <div class="sec-label">آراء عملائنا</div>
+    <h2 class="sec-title">شركاء <span class="hl">نجاح</span> حقيقيون</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"خلال أسبوعين من الحملة ضاعفت مبيعاتي 3 مرات — ما توقعت النتائج تكون بهذه السرعة"</p>
+      <div class="review-author"><div class="review-avatar">م</div><div><div class="review-name">محمد الشرقاوي</div><div class="review-city">الدار البيضاء</div></div></div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"فريق إنجاز محترف جداً، التقارير واضحة والنتائج ملموسة. أنصح كل صاحب متجر يتواصل معهم"</p>
+      <div class="review-author"><div class="review-avatar">ف</div><div><div class="review-name">فاطمة الزهراء</div><div class="review-city">فاس</div></div></div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"جربت وكالات كثيرة قبلهم لكن إنجاز هو الوحيد اللي أعطاني نتائج حقيقية بتكلفة معقولة"</p>
+      <div class="review-author"><div class="review-avatar">ع</div><div><div class="review-name">عبد الله الناصري</div><div class="review-city">مراكش</div></div></div>
+    </div>
+  </div>
+</section>
 
-    <!-- FAQ -->
-    <section id="faq">
-        <div class="section-container">
-            <div class="section-header reveal">
-                <div class="section-label">
-                    أسئلة شائعة
-                </div>
-                <h2 class="section-title">الأسئلة <span style="color: var(--gold);">الأكثر شيوعاً</span></h2>
-                <p class="section-subtitle">إجابات على أكثر الأسئلة التي يطرحها عملاؤنا</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="faq-container">
-                <div class="faq-item reveal reveal-delay-1">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>كم تكلفة إدارة الحملات الإعلانية؟</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            تختلف التكلفة حسب حجم نشاطك وأهدافك. نقدم باقات مرنة تناسب جميع الميزانيات تبدأ من 500 درهم شهرياً. تواصل معنا على واتساب وسنقدم لك عرض سعر مخصص يناسب احتياجاتك.
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item reveal reveal-delay-2">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>متى سأبدأ في رؤية النتائج؟</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            عادةً ما تبدأ النتائج الظاهرة خلال الأسبوع الأول من إطلاق الحملة. لكن النتائج المثالية والمستقرة تظهر بعد 2 إلى 4 أسابيع من التحسين المستمر واستقرار البيانات.
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item reveal reveal-delay-3">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>هل أحتاج ميزانية كبيرة للإعلانات؟</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            لا، يمكنك البدء بميزانية صغيرة. المهم هو الاستراتيجية الصحيحة في الاستهداف. نساعدك في تحقيق أفضل عائد ممكن مهما كانت ميزانيتك، ونعمل على زيادتها تدريجياً مع تحسن النتائج.
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item reveal reveal-delay-4">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>ما المنصات التي تعملون عليها؟</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            نعمل بشكل أساسي على Facebook و Instagram، كما يمكننا إدارة حملات على منصات أخرى مثل TikTok و Google Ads حسب احتياجات نشاطك التجاري. نقدم لك الاستشارة لتحديد أفضل المنصات لجمهورك.
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item reveal">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>هل تقدمون تقارير عن أداء الحملات؟</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            نعم، نقدم تقارير أسبوعية وشهرية مفصلة تتضمن جميع المؤشرات المهمة مثل عدد الوصول، التفاعلات، التحويلات، والتكلفة لكل نتيجة. نحرص على الشفافية الكاملة مع عملائنا.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="cta-section">
+  <h2 class="reveal">جاهز تبدأ<br><span style="background:linear-gradient(135deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">تضاعف مبيعاتك؟</span></h2>
+  <p class="reveal">استشارتك الأولى مجانية تماماً — تحدث معنا الآن واكتشف كيف نمدك لأهدافك</p>
+  <a href="https://wa.me/212XXXXXXXXX?text=السلام عليكم، أريد استشارة مجانية حول تسويق متجري" class="btn-wa reveal" target="_blank">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.558 4.136 1.535 5.876L0 24l6.292-1.517C8.002 23.447 9.96 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.897 0-3.7-.512-5.268-1.41l-.376-.223-3.896.94.988-3.797-.247-.39C2.512 15.7 2 13.897 2 12 2 6.478 6.478 2 12 2s10 4.478 10 10-4.478 10-10 10z"/></svg>
+    ابدأ مجاناً الآن
+  </a>
+</div>
 
-    <!-- FINAL CTA -->
-    <section class="cta-section" id="cta">
-        <div class="cta-content reveal">
-            <div class="cta-icon">
-                <i class="fab fa-whatsapp"></i>
-            </div>
-            <h2 class="cta-title">مستعد لتطوير أعمالك وزيادة مبيعاتك؟</h2>
-            <p class="cta-text">لا تضيّع المزيد من الوقت. تواصل معنا الآن واحصل على استشارة مجانية وعرض سعر مخصص لنشاطك التجاري.</p>
-            <a href="https://wa.me/212600000000" class="btn-whatsapp-large" target="_blank">
-                <i class="fab fa-whatsapp"></i>
-                راسلنا الآن على واتساب
-            </a>
-        </div>
-    </section>
+<section class="portfolio-cta">
+  <h2>تريد موقعاً <span class="hl">كهذا</span> لعملك؟ 💡</h2>
+  <p>هذا تصميم من إنجاز — نبني لك صفحة هبوط احترافية لأي خدمة أو منتج بنفس المستوى وأكثر</p>
+  <a href="https://wa.me/212XXXXXXXXX?text=السلام عليكم، رأيت تصميم موقع إنجاز وأريد نسخة مخصصة لعملي" class="btn-wa" target="_blank">
+    💬 اطلب موقعك الآن
+  </a>
+  <div class="portfolio-tags">
+    <span class="ptag">⚡ جاهز خلال 48 ساعة</span>
+    <span class="ptag">🎨 تصميم حسب هويتك</span>
+    <span class="ptag">📱 متوافق 100% مع الجوال</span>
+    <span class="ptag">🔗 رابط جاهز للنشر</span>
+  </div>
+</section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <i class="fas fa-rocket" style="-webkit-text-fill-color: var(--gold);"></i>
-                إنجاز
-            </div>
-            <p class="footer-text">وكالة تسويق رقمي مغربية متخصصة في الإعلانات الممولة على فيسبوك وإنستغرام</p>
-            <div class="footer-socials">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-                <a href="#"><i class="fab fa-tiktok"></i></a>
-            </div>
-            <p class="footer-copyright">
-                © 2024 إنجاز للتسويق الرقمي. جميع الحقوق محفوظة.
-            </p>
-        </div>
-    </footer>
+<footer><p>© 2025 إنجاز للتسويق الرقمي — جميع الحقوق محفوظة</p></footer>
+<a href="https://wa.me/212XXXXXXXXX" class="wa-float" target="_blank">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.558 4.136 1.535 5.876L0 24l6.292-1.517C8.002 23.447 9.96 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.897 0-3.7-.512-5.268-1.41l-.376-.223-3.896.94.988-3.797-.247-.39C2.512 15.7 2 13.897 2 12 2 6.478 6.478 2 12 2s10 4.478 10 10-4.478 10-10 10z"/></svg>
+</a>
 
-    <!-- FLOATING WHATSAPP -->
-    <a href="https://wa.me/212600000000" class="floating-whatsapp" target="_blank" aria-label="تواصل معنا على واتساب">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <script>
-        // ===== NAVBAR SCROLL =====
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // ===== MOBILE MENU =====
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('open');
-            document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
-        }
-
-        // ===== SCROLL REVEAL =====
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        // ===== ANIMATED COUNTERS =====
-        let countersAnimated = false;
-        const statsSection = document.getElementById('stats');
-
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !countersAnimated) {
-                    countersAnimated = true;
-                    animateCounters();
-                }
-            });
-        }, { threshold: 0.3 });
-
-        counterObserver.observe(statsSection);
-
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number');
-            counters.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-target'));
-                const suffix = counter.getAttribute('data-suffix') || '';
-
-                if (suffix === '24/7') {
-                    counter.textContent = '24/7';
-                    return;
-                }
-
-                if (!target) return;
-
-                const duration = 2000;
-                const step = target / (duration / 16);
-                let current = 0;
-
-                const updateCounter = () => {
-                    current += step;
-                    if (current < target) {
-                        counter.textContent = '+' + Math.floor(current) + suffix;
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = '+' + target + suffix;
-                    }
-                };
-
-                updateCounter();
-            });
-        }
-
-        // ===== FAQ ACCORDION =====
-        function toggleFaq(element) {
-            const faqItem = element.parentElement;
-            const answer = faqItem.querySelector('.faq-answer');
-            const isActive = faqItem.classList.contains('active');
-
-            // Close all
-            document.querySelectorAll('.faq-item').forEach(item => {
-                item.classList.remove('active');
-                item.querySelector('.faq-answer').style.maxHeight = null;
-            });
-
-            // Open clicked if it was closed
-            if (!isActive) {
-                faqItem.classList.add('active');
-                answer.style.maxHeight = answer.scrollHeight + 'px';
-            }
-        }
-
-        // ===== HERO PARTICLES =====
-        function createParticles() {
-            const container = document.getElementById('particles');
-            const particleCount = 30;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (4 + Math.random() * 4) + 's';
-                particle.style.width = (2 + Math.random() * 3) + 'px';
-                particle.style.height = particle.style.width;
-                container.appendChild(particle);
-            }
-        }
-
-        createParticles();
-
-        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+<script>
+const observer = new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const counters=document.querySelectorAll('.stat-num[data-target]');
+const cObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const t=+e.target.dataset.target;let c=0;const s=t/60;const timer=setInterval(()=>{c+=s;if(c>=t){c=t;clearInterval(timer)}e.target.textContent=Math.floor(c)+(t>=100?'+':'')},30);cObserver.unobserve(e.target)}})});
+counters.forEach(c=>cObserver.observe(c));
+</script>
 </body>
 </html>
-
